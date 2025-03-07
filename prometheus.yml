@@ -4,5 +4,10 @@ global:
 scrape_configs:
   - job_name: 'java-api'
     static_configs:
-      - targets: ['172.17.0.1:8080']  # Modificado para o endpoint correto
+      - targets: ['172.17.0.1:8080']
     metrics_path: '/actuator/prometheus'
+
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['172.17.0.1:9187']
+    metrics_path: '/metrics'
