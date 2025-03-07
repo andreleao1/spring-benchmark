@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres-db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  prometheus:
+    enabled: true
+    metrics:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    enable:
+      jvm: true
+      system: true
+      process: true
+  prometheus:
+    enabled: true
+    endpoint: /actuator/prometheus
+  health:
+    db:
+      enabled: true
+
+server:
+  port: 8080
+
+kong:
+  url: http://localhost:8080
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web.filter.CommonsRequestLoggingFilter: OFF
+    org.springframework.boot.actuate.web: OFF
+
+http-client:
+  timeout: 5000
+
+micrometer:
+  metrics:
+    distribution:
+      percentiles-histogram: true
+      percentiles:
+        - 0.9
+      high-cardinality-dimensions:
+        - uri
+        - status
